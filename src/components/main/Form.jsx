@@ -49,19 +49,9 @@ export default function Form({ reloadImages }) {
             return selected;
           }}
         >
-          <MenuItem value={"shiba"}>柴犬</MenuItem>
-          <MenuItem value={"airedale"}>エアデールテリア</MenuItem>
-          <MenuItem value={"pug"}>パグ</MenuItem>
-          <MenuItem value={"pomeranian"}>ポメラニアン</MenuItem>
-          <MenuItem value={"entlebucher"}>
-            エントレブッフ・キャトル・ドッグ
-          </MenuItem>
-          <MenuItem value={"labrador"}>ラブラドール・レトリバー</MenuItem>
-          <MenuItem value={"husky"}>シベリアン・ハスキー</MenuItem>
-          <MenuItem value={"akita"}>秋田犬</MenuItem>
-          <MenuItem value={"papillon"}>パピヨン</MenuItem>
-          <MenuItem value={"samoyed"}>サモエド</MenuItem>
-          <MenuItem value={"dingo"}>ディンゴ</MenuItem>
+          {dogs.map((dog) => {
+            return <MenuItem value={dog.value}>{dog.name}</MenuItem>;
+          })}
         </Select>
       </FormControl>
     </Box>
