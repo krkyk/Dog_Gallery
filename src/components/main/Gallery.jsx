@@ -16,7 +16,6 @@ export default function Gallery() {
   function reloadImages(prop) {
     fetchImages(prop).then((imageUrls) => {
       setImageUrls(imageUrls);
-      // console.log(imageUrls);
     });
   }
 

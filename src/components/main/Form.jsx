@@ -6,29 +6,30 @@ import { MenuItem } from "@mui/material";
 import { useState } from "react";
 
 export default function Form({ reloadImages }) {
-  const [breed, setBreed] = useState("柴犬");
+  // API取得URL用
+  const [breed, setBreed] = useState("shiba");
+  // 検索ボックス表示用
+  const [breedName, setBreedName] = useState("柴犬");
   const dogs = [
+    { name: "柴犬", value: "shiba" },
+    { name: "エアデールテリア", value: "airedale" },
     { name: "パグ", value: "pug" },
-    { name: "ボーダーコリー", value: "boeder collie" },
     { name: "ポメラニアン", value: "pomeranian" },
     { name: "エントレブッフ・キャトル・ドッグ", value: "entlebucher" },
     { name: "ラブラドール・レトリバー", value: "labrador" }
   ];
-  // console.log(breed);
 
   function handleChange(event) {
     // eventが通常の動きをしませんよという宣言
     event.preventDefault();
-    dogs.map((dog) => {
+    dogs.forEach((dog) => {
       if (Object.values(dog).includes(event.target.value)) {
-        return setBreed(dog.name);
-        // return console.log(dog.name);
-      } else {
-        return null;
+        setBreedName(dog.name);
+        setBreed(event.target.value);
       }
     });
-
-    reloadImages(breed);
+    // breedにはまだ前回の状態が入っているのでevent.target.valueを渡す
+    reloadImages(event.target.value);
   }
 
   return (
@@ -38,9 +39,8 @@ export default function Form({ reloadImages }) {
         <Select
           labelId="select-label"
           id="select-breed"
-          value={breed}
+          value={breedName}
           label="犬種"
-          name={"a"}
           onChange={handleChange}
           renderValue={(selected) => {
             if (selected.length === 0) {
@@ -51,7 +51,7 @@ export default function Form({ reloadImages }) {
           }}
         >
           <MenuItem value={"shiba"}>柴犬</MenuItem>
-          <MenuItem value={"boeder collie"}>ボーダーコリー</MenuItem>
+          <MenuItem value={"airedale"}>エアデールテリア</MenuItem>
           <MenuItem value={"pug"}>パグ</MenuItem>
           <MenuItem value={"pomeranian"}>ポメラニアン</MenuItem>
           <MenuItem value={"entlebucher"}>
