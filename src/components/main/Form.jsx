@@ -6,30 +6,29 @@ import { MenuItem } from "@mui/material";
 import { useState } from "react";
 
 export default function Form({ reloadImages }) {
-  // API取得URL用
-  const [breed, setBreed] = useState("shiba");
-  // 検索ボックス表示用
-  const [breedName, setBreedName] = useState("柴犬");
+  const [breed, setBreed] = useState("柴犬");
   const dogs = [
     { name: "柴犬", value: "shiba" },
     { name: "エアデールテリア", value: "airedale" },
     { name: "パグ", value: "pug" },
     { name: "ポメラニアン", value: "pomeranian" },
     { name: "エントレブッフ・キャトル・ドッグ", value: "entlebucher" },
-    { name: "ラブラドール・レトリバー", value: "labrador" }
+    { name: "ラブラドール・レトリバー", value: "labrador" },
+    { name: "シベリアン・ハスキー", value: "husky" },
+    { name: "秋田犬", value: "akita" },
+    { name: "パピヨン", value: "papillon" },
+    { name: "サモエド", value: "samoyed" },
+    { name: "ディンゴ", value: "dingo" }
   ];
 
   function handleChange(event) {
     // eventが通常の動きをしませんよという宣言
     event.preventDefault();
-    dogs.forEach((dog) => {
-      if (Object.values(dog).includes(event.target.value)) {
-        setBreedName(dog.name);
-        setBreed(event.target.value);
-      }
-    });
-    // breedにはまだ前回の状態が入っているのでevent.target.valueを渡す
-    reloadImages(event.target.value);
+    const dogObj = dogs.find((dog) =>
+      Object.values(dog).includes(event.target.value)
+    );
+    setBreed(dogObj.name);
+    reloadImages(dogObj.value);
   }
 
   return (
@@ -39,7 +38,7 @@ export default function Form({ reloadImages }) {
         <Select
           labelId="select-label"
           id="select-breed"
-          value={breedName}
+          value={breed}
           label="犬種"
           onChange={handleChange}
           renderValue={(selected) => {
@@ -58,6 +57,11 @@ export default function Form({ reloadImages }) {
             エントレブッフ・キャトル・ドッグ
           </MenuItem>
           <MenuItem value={"labrador"}>ラブラドール・レトリバー</MenuItem>
+          <MenuItem value={"husky"}>シベリアン・ハスキー</MenuItem>
+          <MenuItem value={"akita"}>秋田犬</MenuItem>
+          <MenuItem value={"papillon"}>パピヨン</MenuItem>
+          <MenuItem value={"samoyed"}>サモエド</MenuItem>
+          <MenuItem value={"dingo"}>ディンゴ</MenuItem>
         </Select>
       </FormControl>
     </Box>
