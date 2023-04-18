@@ -2,6 +2,7 @@ import { Box } from "@mui/material";
 import CreateCard from "./CreateCard";
 import { useEffect, useState } from "react";
 import { fetchImages } from "../../api";
+import Form from "./Form";
 
 export default function Gallery() {
   const [imageUrls, setImageUrls] = useState(null);
@@ -12,9 +13,19 @@ export default function Gallery() {
     });
   }, []);
 
+  function reloadImages(prop) {
+    fetchImages(prop).then((imageUrls) => {
+      setImageUrls(imageUrls);
+      // console.log(imageUrls);
+    });
+  }
+
   return (
-    <Box sx={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)" }}>
-      <CreateCard images={imageUrls} />
-    </Box>
+    <>
+      <Form reloadImages={reloadImages} />
+      <Box sx={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)" }}>
+        <CreateCard images={imageUrls} />
+      </Box>
+    </>
   );
 }
